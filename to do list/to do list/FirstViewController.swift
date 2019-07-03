@@ -29,8 +29,21 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             [String] {
             taskList = tempTask
         }
-        //table.reloadData()
+        table.reloadData()
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            taskList.remove(at: indexPath.row)
+            table.reloadData()
+            UserDefaults.standard.set(taskList, forKey: "taskList")
+        }
+    }
+    
+    
+    
+    
     func tableView(  _ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskList.count
 }
@@ -47,3 +60,5 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
 //active memory (flash) - quick, cheap memory that gets the job done
 //Stored memory (hard drive) - cached memory (be careful on maintaining data, if there is not enough space,the app wont open)
 }
+
+
